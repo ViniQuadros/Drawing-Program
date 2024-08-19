@@ -4,9 +4,12 @@ Game::Game() :
     pen(sf::Color::White, 5.0f), 
     changeBg(sf::Vector2f(250.0f, 20.0f), sf::Vector2f(210.0f, 40.0f)), 
     startDraw(sf::Vector2f(550.0f, 20.0f), sf::Vector2f(210.0f, 40.0f)),
-    scrollR(sf::Vector2f(400.0f, 300.0f)),
-    scrollG(sf::Vector2f(400.0f, 350.0f)),
-    scrollB(sf::Vector2f(400.0f, 300.0f))
+    myScroll(sf::Vector2f(400.0f, 350.0f)),
+    red(sf::Color::Red, sf::Vector2f(20.0f, 200.0f)),
+    green(sf::Color::Green, sf::Vector2f(20.0f, 250.0f)),
+    blue(sf::Color::Blue, sf::Vector2f(20.0f, 300.0f)),
+    black(sf::Color::Black, sf::Vector2f(20.0f, 350.0f)),
+    white(sf::Color::White, sf::Vector2f(20.0f, 400.0f))
 {
 	window.create(sf::VideoMode(800, 600), "My Window");
     window.setFramerateLimit(60);
@@ -15,11 +18,7 @@ Game::Game() :
     changeBg.setText("Set Background Color");
     startDraw.setText("Draw");
 
-    red.construct(sf::Color::Red, sf::Vector2f(20.0f, 200.0f));
-    green.construct(sf::Color::Green, sf::Vector2f(20.0f, 250.0f));
-    blue.construct(sf::Color::Blue, sf::Vector2f(20.0f, 300.0f));
-    black.construct(sf::Color::Black, sf::Vector2f(20.0f, 350.0f));
-    white.construct(sf::Color::White, sf::Vector2f(20.0f, 400.0f));
+    penIncrease = 6.0f;
 
     currentMode = SettingsMode;
 }
@@ -38,15 +37,11 @@ void Game::draw()
 {
     window.clear();
 
-    scrollR.renderBg(window);
-    scrollG.renderBg(window);
-    scrollB.renderBg(window);
+    myScroll.renderBg(window);
 
     if(currentMode == SettingsMode)
     {
-        scrollR.renderBox(window);
-        scrollG.renderBox(window);
-        scrollB.renderBox(window);
+        myScroll.renderBox(window);
     }
 
     if(currentMode == DrawMode)
@@ -78,7 +73,20 @@ void Game::input()
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
     {
-        pen.increaseSize(8.0f);
+        pen.increaseSize(penIncrease);
+        if (penIncrease <= 15.0f)
+        {
+            penIncrease += 0.5f;
+        }
+    }
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+    {
+        pen.decreaseSize(penIncrease);
+        if (penIncrease <= 16.0f && penIncrease >= 5.0f)
+        {
+            penIncrease -= 0.5f;
+        }
     }
 }
 
@@ -160,24 +168,15 @@ void Game::insideScroll(sf::CircleShape& scroll)
 
 void Game::useScroll()
 {
-    if (scrollR.scroll.getGlobalBounds().contains(mousePosition))
+    if (myScroll.scroll.getGlobalBounds().contains(mousePosition))
     {
-        insideScroll(scrollR.scroll);
-    }
-    if (scrollG.scroll.getGlobalBounds().contains(mousePosition))
-    {
-        insideScroll(scrollG.scroll);
-    }
-    if (scrollB.scroll.getGlobalBounds().contains(mousePosition))
-    {
-        insideScroll(scrollB.scroll);
+        insideScroll(myScroll.scroll);
     }
 }
 
 sf::Vector2f Game::GetMousePosition(sf::RenderWindow& window)
 {
     mousePosition = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-    //std::cout << "X: " << mousePosition.x << "  Y: " << mousePosition.y << std::endl;
 
     return mousePosition;
 }

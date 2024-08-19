@@ -33,12 +33,14 @@ void Pen::changeColor(sf::Color penColor)
 
 void Pen::increaseSize(float radius)
 {
-	this->pen.setRadius(radius + 2.0f);
+	this->pen.setRadius(radius);
+	this->pen.setOrigin(radius, radius);
 }
 
 void Pen::decreaseSize(float radius)
 {
-	this->pen.setRadius(radius - 2.0f);
+	this->pen.setRadius(radius);
+	this->pen.setOrigin(radius, radius);
 }
 
 void Pen::setPosition(sf::Vector2f mousePosition)

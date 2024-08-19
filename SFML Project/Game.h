@@ -34,11 +34,10 @@ private:
 	sf::Vector2f mousePosition;
 	sf::FloatRect mouseBounds;
 
-	ChangeBgInterface scrollR;
-	ChangeBgInterface scrollG;
-	ChangeBgInterface scrollB;
+	ChangeBgInterface myScroll;
 
 	Pen pen;
+	float penIncrease;
 
 	Button startDraw;
 	Button changeBg;

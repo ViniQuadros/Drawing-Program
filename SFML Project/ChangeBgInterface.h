@@ -20,9 +20,7 @@ private:
 	sf::Text changeColorText;
 	sf::Text drawText;
 
-	sf::RectangleShape scrollLineR;
-	sf::RectangleShape scrollLineG;
-	sf::RectangleShape scrollLineB;
+	sf::RectangleShape scrollLine;
 	sf::RectangleShape box;
 
 	float Radius;
