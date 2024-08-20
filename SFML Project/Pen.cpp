@@ -10,12 +10,12 @@ Pen::Pen(sf::Color penColor, float radius)
 
 void Pen::render(sf::RenderWindow& window)
 {
-	window.draw(this->pen);
-
 	if (!this->lines.empty())
 	{
 		window.draw(&this->lines[0], this->lines.size(), sf::LineStrip);
 	}
+
+	window.draw(this->pen);
 }
 
 void Pen::drawScreen(sf::RenderWindow& window, sf::Vector2f mousePos)
@@ -56,4 +56,9 @@ void Pen::setColor(sf::Color color)
 void Pen::setDrawing(bool isDrawing)
 {
 	this->isDrawing = isDrawing;
+}
+
+void Pen::clearDraw()
+{
+	this->lines.clear();
 }

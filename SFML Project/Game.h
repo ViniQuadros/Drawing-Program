@@ -39,8 +39,9 @@ private:
 	Pen pen;
 	float penIncrease;
 
-	Button startDraw;
-	Button changeBg;
+	StartDrawBtn startDraw;
+	ChangeBackground changeBg;
+	ClearBtn clearBtn;
 
 	DrawInterface red;
 	DrawInterface green;

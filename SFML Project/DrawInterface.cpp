@@ -20,3 +20,13 @@ void DrawInterface::changePenColor(sf::Vector2f mousePosition)
 		this->pen.setColor(setColorShape.getFillColor());
 	}
 }
+
+sf::Color DrawInterface::shapeColor()
+{
+	return this->setColorShape.getFillColor();
+}
+
+bool DrawInterface::containMouse(sf::Vector2f mousePosition)
+{
+	return this->setColorShape.getGlobalBounds().contains(mousePosition);
+}

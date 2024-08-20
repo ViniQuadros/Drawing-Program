@@ -1,6 +1,7 @@
 #include "Button.h"
 
-Button::Button(sf::Vector2f position, sf::Vector2f size)
+Button::Button(sf::Vector2f position, sf::Vector2f size) //:
+	// pen(sf::Color::White, 5.0f)
 {
 	this->buttonShape.setSize(sf::Vector2f(size));
 	this->buttonShape.setFillColor(sf::Color::Cyan);
@@ -39,4 +40,46 @@ void Button::render(sf::RenderWindow& window)
 {
 	window.draw(this->buttonShape);
 	window.draw(this->text);
+}
+
+bool Button::containMouse(sf::Vector2f mousePosition)
+{
+	return this->buttonShape.getGlobalBounds().contains(mousePosition);
+}
+
+
+ClearBtn::ClearBtn(sf::Vector2f position, sf::Vector2f size) :
+	Button(position, size)
+{
+
+}
+
+void ClearBtn::clearScreen()
+{
+	//this->pen.clearDraw();
+}
+
+void ClearBtn::clicked(sf::Vector2f mousePosition)
+{
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+		if (this->buttonShape.getGlobalBounds().contains(mousePosition))
+		{
+			this->clearScreen();
+		}
+	}
+}
+
+
+ChangeBackground::ChangeBackground(sf::Vector2f position, sf::Vector2f size) :
+	Button(position, size)
+{
+
+}
+
+
+StartDrawBtn::StartDrawBtn(sf::Vector2f position, sf::Vector2f size) :
+	Button(position, size)
+{
+
 }

@@ -4,6 +4,7 @@ Game::Game() :
     pen(sf::Color::White, 5.0f), 
     changeBg(sf::Vector2f(250.0f, 20.0f), sf::Vector2f(210.0f, 40.0f)), 
     startDraw(sf::Vector2f(550.0f, 20.0f), sf::Vector2f(210.0f, 40.0f)),
+    clearBtn(sf::Vector2f(400.0f, 550.0f), sf::Vector2f(200.0f, 40.0f)),
     myScroll(sf::Vector2f(400.0f, 350.0f)),
     red(sf::Color::Red, sf::Vector2f(20.0f, 200.0f)),
     green(sf::Color::Green, sf::Vector2f(20.0f, 250.0f)),
@@ -17,6 +18,7 @@ Game::Game() :
 
     changeBg.setText("Set Background Color");
     startDraw.setText("Draw");
+    clearBtn.setText("Clear");
 
     penIncrease = 6.0f;
 
@@ -52,6 +54,7 @@ void Game::draw()
         black.render(window);
         white.render(window);
         pen.render(window);
+        clearBtn.render(window);
     }
 
     changeBg.render(window);
@@ -88,6 +91,11 @@ void Game::input()
             penIncrease -= 0.5f;
         }
     }
+
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && clearBtn.containMouse(mousePosition))
+    {
+        pen.clearDraw();
+    }
 }
 
 void Game::handleEvents()
@@ -110,6 +118,9 @@ void Game::handleEvents()
      startDraw.hovered(mousePosition);
      changeBg.hovered(mousePosition);
 
+     clearBtn.hovered(mousePosition);
+     clearBtn.clicked(mousePosition);
+
      pen.setPosition(mousePosition);
      pen.drawScreen(window, mousePosition);
 
@@ -119,11 +130,11 @@ void Game::handleEvents()
 
 void Game::changingStates()
 {
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && startDraw.buttonShape.getGlobalBounds().contains(mousePosition))
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && startDraw.containMouse(mousePosition))
     {
         currentMode = DrawMode;
     }
-    else if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && changeBg.buttonShape.getGlobalBounds().contains(mousePosition))
+    else if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && changeBg.containMouse(mousePosition))
     {
         currentMode = SettingsMode;
     }
@@ -133,25 +144,25 @@ void Game::changePenColor()
 {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
-        if (red.setColorShape.getGlobalBounds().contains(mousePosition))
+        if (red.containMouse(mousePosition))
         {
-            pen.setColor(red.setColorShape.getFillColor());
+            pen.setColor(red.shapeColor());
         }
-        else if (green.setColorShape.getGlobalBounds().contains(mousePosition))
+        else if (green.containMouse(mousePosition))
         {
-            pen.setColor(green.setColorShape.getFillColor());
+            pen.setColor(green.shapeColor());
         }
-        else if (blue.setColorShape.getGlobalBounds().contains(mousePosition))
+        else if (blue.containMouse(mousePosition))
         {
-            pen.setColor(blue.setColorShape.getFillColor());
+            pen.setColor(blue.shapeColor());
         }
-        else if (black.setColorShape.getGlobalBounds().contains(mousePosition))
+        else if (black.containMouse(mousePosition))
         {
-            pen.setColor(black.setColorShape.getFillColor());
+            pen.setColor(black.shapeColor());
         }
-        else if (white.setColorShape.getGlobalBounds().contains(mousePosition))
+        else if (white.containMouse(mousePosition))
         {
-            pen.setColor(white.setColorShape.getFillColor());
+            pen.setColor(white.shapeColor());
         }
     }
 }

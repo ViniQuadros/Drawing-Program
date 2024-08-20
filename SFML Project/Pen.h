@@ -18,6 +18,7 @@ public:
 	void setPosition(sf::Vector2f mousePosition);
 	void setColor(sf::Color color);
 	void setDrawing(bool isDrawing);
+	void clearDraw();
 
 private:
 	bool isDrawing;

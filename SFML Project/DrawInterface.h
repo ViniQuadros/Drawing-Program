@@ -9,6 +9,8 @@ public:
 
 	void render(sf::RenderWindow& window);
 	void changePenColor(sf::Vector2f mousePosition);
+	sf::Color shapeColor();
+	bool containMouse(sf::Vector2f mousePosition);
 
 	sf::CircleShape setColorShape;
 
